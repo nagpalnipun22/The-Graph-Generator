@@ -1,15 +1,13 @@
-# install.packages('shiny')
-# install.packages('readxl')
-# install.packages('ggplot2')
-# install.packages('dplyr')
-# install.packages('ggthemes')
+#libraries call statements
 library(shiny)
 library(readxl)
 library(ggplot2)
 library(dplyr)
 library(ggthemes)
 
+#importing the cars external dataset named as 'CARS.xlsx'
 cars <- read_xlsx(path = 'C:/Users/DELL/OneDrive/Desktop/R Programs/R Shiny/project 1/data/CARS.xlsx')
+
 
 ui <- fluidPage(
 
@@ -18,6 +16,8 @@ ui <- fluidPage(
     sidebarPanel(
       selectInput('choose','Select the Origin',choices = unique(cars$Origin))
     ),
+    
+    #using conditionalPanel() to switch between the origins 
     mainPanel(
       conditionalPanel(
         condition = "input.choose == 'Asia'",plotOutput('asia')),
@@ -32,11 +32,13 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   
+  #grouping data by selecting required columns and generating a new column with mean MSRP using dplyr pipe
   summary_data <- cars %>% 
     select(Origin,Make,MSRP) %>% 
     group_by(Origin,Make) %>% 
     summarise(MSRP = mean(MSRP))
 
+  #applying filters origin wise to separate records
   asiadata <- summary_data %>%
     filter(Origin == 'Asia')
   
@@ -46,6 +48,7 @@ server <- function(input, output, session) {
   usadata <- summary_data %>%
     filter(Origin == 'USA')
   
+  #changing the order of the make according to increasing order of the MSRP for better visualisation
   asia <- asiadata
   asia$Make <- factor(asia$Make, levels = asia$Make[order(asia$MSRP)])
   
@@ -55,6 +58,7 @@ server <- function(input, output, session) {
   usa <- usadata
   usa$Make <- factor(usa$Make, levels = usa$Make[order(usa$MSRP)])
   
+  #creating a output as plot
   output$usa <- renderPlot({ggplot(usa,aes(Make,MSRP))+
       geom_bar(stat = 'identity')+
       geom_label(aes(Make,MSRP,label = round(MSRP)))+
