@@ -1,0 +1,12 @@
+name: CarsData
+title: CarsData
+username: heynipun
+account: heynipun
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 15158890
+bundleId: 10731569
+url: https://heynipun.shinyapps.io/CarsData/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
