@@ -4,9 +4,10 @@ username: heynipun
 account: heynipun
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
-appId: 15158890
-bundleId: 10731569
+appId: 15179501
+bundleId: 10746905
 url: https://heynipun.shinyapps.io/CarsData/
 version: 1
 asMultiple: FALSE
 asStatic: FALSE
+ignoredFiles: plot.png

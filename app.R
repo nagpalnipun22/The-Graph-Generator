@@ -6,7 +6,7 @@ library(dplyr)
 library(ggthemes)
 
 #importing the cars external dataset named as 'CARS.xlsx'
-cars <- read_xlsx(path = 'C:/Users/DELL/OneDrive/Desktop/R Programs/R Shiny/project 1/data/CARS.xlsx')
+cars <- read_xlsx('CARS.xlsx')
 
 
 ui <- fluidPage(
